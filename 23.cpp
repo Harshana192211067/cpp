@@ -8,7 +8,7 @@ private:
     int sum;
 
 public:
-    // Constructor to initialize the series and calculate the sum
+   // Constructor to initialize the series and calculate the sum
     SeriesSum(string s) {
         series = s;
         sum = 0;
@@ -17,12 +17,14 @@ public:
 
     // Function to calculate the sum of the series
     void calculateSum() {
-        int current = 0;
+        int current = 0,sum=0;
         for (int i = 0; i < series.length(); ++i) {
             char c = series[i];
-            if (isdigit(c)) {
-                current = current * 10 + (c - '0');
-            } else if (c == '+') {
+            if (isdigit(c)) 
+			{
+                current = current * 10 + ( c - '0');
+            } 
+			else if (c == '+') {
                 sum += current;
                 current = 0;
             }
@@ -48,6 +50,5 @@ int main() {
     // Displaying the sum of the series
     seriesSum.displaySum();
 
-    return 0;
 }
 
