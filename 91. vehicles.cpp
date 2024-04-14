@@ -1,49 +1,46 @@
 #include <iostream>
-#include <string>
-
 using namespace std;
 
-// Base class Vehicle
 class Vehicle {
-protected:
+private:
     string model;
     string regNumber;
-    float speed; // km/hour
-    float fuelCapacity; // liters
-    float fuelConsumption; // kiloM
-
+    double speed; // km/hour
+    double fuelCapacity; // liters
+    double fuelConsumption; // kiloM
 public:
     // Parameterized constructor
-    Vehicle(string model, string regNumber, float speed, float fuelCapacity, float fuelConsumption)
-        : model(model), regNumber(regNumber), speed(speed), fuelCapacity(fuelCapacity), fuelConsumption(fuelConsumption) {}
-
-    // Getters and setters
-    string getModel() const { return model; }
-    void setModel(string model) { this->model = model; }
-
-    string getRegNumber() const { return regNumber; }
-    void setRegNumber(string regNumber) { this->regNumber = regNumber; }
-
-    float getSpeed() const { return speed; }
-    void setSpeed(float speed) { this->speed = speed; }
-
-    float getFuelCapacity() const { return fuelCapacity; }
-    void setFuelCapacity(float fuelCapacity) { this->fuelCapacity = fuelCapacity; }
-
-    float getFuelConsumption() const { return fuelConsumption; }
-    void setFuelConsumption(float fuelConsumption) { this->fuelConsumption = fuelConsumption; }
-
-    // Method to calculate fuel needed for given distance
-    float fuelNeeded(float distance) {
-        float fuelNeeded = 0;
-        for (int i = 0; i < distance; ++i) {
-            fuelNeeded += fuelConsumption;
-        }
-        return fuelNeeded;
+    Vehicle(string modelParam, string regNumberParam, double speedParam, double fuelCapacityParam, double fuelConsumptionParam) {
+        model = modelParam;
+        regNumber = regNumberParam;
+        speed = speedParam;
+        fuelCapacity = fuelCapacityParam;
+        fuelConsumption = fuelConsumptionParam;
     }
 
-    // Method to calculate distance covered for given time
-    float distanceCovered(float time) {
+    // Getters and Setters
+    int setModel(string modelParam) { model = modelParam; }
+    string getModel() { return model; }
+
+    int setRegNumber(string regNumberParam) { regNumber = regNumberParam; }
+    string getRegNumber() { return regNumber; }
+
+    int setSpeed(double speedParam) { speed = speedParam; }
+    double getSpeed() { return speed; }
+
+    int setFuelCapacity(double fuelCapacityParam) { fuelCapacity = fuelCapacityParam; }
+    double getFuelCapacity() { return fuelCapacity; }
+
+    int setFuelConsumption(double fuelConsumptionParam) { fuelConsumption = fuelConsumptionParam; }
+    double getFuelConsumption() { return fuelConsumption; }
+
+    // Method to calculate fuel needed for a given distance
+    double fuelNeeded(double distance) {
+        return distance * fuelConsumption;
+    }
+
+    // Method to calculate distance covered for a given time
+    double distanceCovered(double time) {
         return speed * time;
     }
 
@@ -57,47 +54,39 @@ public:
     }
 };
 
-// Derived class Bus from Vehicle
 class Bus : public Vehicle {
 public:
-    // Constructor using base class constructor
-    Bus(string model, string regNumber, float speed, float fuelCapacity, float fuelConsumption)
+    Bus(string model, string regNumber, double speed, double fuelCapacity, double fuelConsumption)
         : Vehicle(model, regNumber, speed, fuelCapacity, fuelConsumption) {}
 };
 
-// Derived class Truck from Vehicle
 class Truck : public Vehicle {
 public:
-    // Constructor using base class constructor
-    Truck(string model, string regNumber, float speed, float fuelCapacity, float fuelConsumption)
+    Truck(string model, string regNumber, double speed, double fuelCapacity, double fuelConsumption)
         : Vehicle(model, regNumber, speed, fuelCapacity, fuelConsumption) {}
 };
 
-// Driver class Transport
+class Transport {
+public:
+    static void main() 
+	{
+        // Creating instances of Bus and Truck
+        Bus bus("Volvo", "ABC123", 60, 200, 0.1);
+        Truck truck("Mack", "XYZ456", 80, 300, 0.2);
+
+        // Displaying information of Bus and Truck
+        cout << "Bus Information:" << endl;
+        bus.display();
+        cout << endl;
+
+        cout << "Truck Information:" << endl;
+        truck.display();
+        cout << endl;
+    }
+};
+
 int main() {
-    // Create objects of Bus and Truck
-    Bus myBus("Volvo", "BUS123", 60, 200, 0.3);
-    Truck myTruck("Scania", "TRUCK456", 80, 300, 0.4);
-
-    // Display vehicle information
-    cout << "Bus Information:" << endl;
-    myBus.display();
-    cout << endl;
-
-    cout << "Truck Information:" << endl;
-    myTruck.display();
-    cout << endl;
-
-    // Example usage of methods
-    float distance = 100; // distance in kilometers
-    float time = 2; // time in hours
-
-    float fuelNeeded = myBus.fuelNeeded(distance);
-    cout << "Fuel needed for " << distance << " kilometers by Bus: " << fuelNeeded << " liters" << endl;
-
-    float distanceCovered = myTruck.distanceCovered(time);
-    cout << "Distance covered by Truck in " << time << " hours: " << distanceCovered << " kilometers" << endl;
-
-    return 0;
+    // Calling main method of Transport class
+    Transport::main();
 }
 
